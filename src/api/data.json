@@ -1,0 +1,313 @@
+{
+    "receitas": [
+        {
+            "id": 1,
+            "name": "Macarrão à carbonara",
+            "time": 15,
+            "servings": 6,
+            "imageUrl": "../assets/images/macarrao-carbonara.jpg",
+            "rate": 4.5,
+            "difficulty": "Easy",
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "Bacon picado",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 2,
+                    "name": "Queijo ralado",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 3,
+                    "name": "Ovos",
+                    "quantity": "3 unidades"
+                },
+                {
+                    "id": 4,
+                    "name": "Sal",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 5,
+                    "name": "Pimenta do reino",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 6,
+                    "name": "Macarrão spagethi",
+                    "quantity": "500 gramas"
+                }
+            ],
+            "steps": [
+                {
+                    "id": 1,
+                    "description": "Frite bem obacon, até ficar crocante."
+                },
+                {
+                    "id": 2,
+                    "description": "Coloque o macarrão para cozinhar na água com sal."
+                },
+                {
+                    "id": 3,
+                    "description": "No refratário onde será servido o macarrão, bata bem os ovos com um garfo."
+                },
+                {
+                    "id": 4,
+                    "description": "Tempere com sal e pimenta a gosto, e junte o queijo ralado, também a gosto."
+                },
+                {
+                    "id": 5,
+                    "description": "Quando o macarrão estiver pronto, escorra e coloque (bem quente) sobre a mistura de ovos, misture bem."
+                },
+                {
+                    "id": 6,
+                    "description": "O calor da massa cozinha os ovos."
+                },
+                {
+                    "id": 7,
+                    "description": "Coloque o bacon, ainda quente, sobre o macarrão e sirva."
+                }
+            ],
+            "tags": [
+                {
+                    "id": 1,
+                    "name": "Massa"
+                },
+                {
+                    "id": 2,
+                    "name": "Jantar"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Estrogonofe de carne",
+            "time": 35,
+            "servings": 4,
+            "imageUrl": "../assets/images/estrogonoffe-carne.jpg",
+            "rate": 4.3,
+            "difficulty": "Mid",
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "Filé mignon",
+                    "quantity": "400 gramas"
+                },
+                {
+                    "id": 2,
+                    "name": "Pimenta do reino",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 3,
+                    "name": "Cominho",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 4,
+                    "name": "Sal",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 5,
+                    "name": "Cebola ralada",
+                    "quantity": "1/2 unidade"
+                },
+                {
+                    "id": 6,
+                    "name": "Creme de leite",
+                    "quantity": "1.5 caixas"
+                },
+                {
+                    "id": 7,
+                    "name": "Catchup",
+                    "quantity": "3 colheres de sopa"
+                },
+                {
+                    "id": 8,
+                    "name": "Extrato de tomate",
+                    "quantity": "3 colheres de sopa"
+                },
+                {
+                    "id": 9,
+                    "name": "Mostarda",
+                    "quantity": "1 colhere de sopa"
+                },
+                {
+                    "id": 10,
+                    "name": "Óleo",
+                    "quantity": "para fritar"
+                }
+            ],
+            "steps": [
+                {
+                    "id": 1,
+                    "description": "Corte a carne selecionada em tirinhas, tempere com a pimenta, o cominho e o sal (coloco 1 ou 2 pitadas de cada, no máximo)."
+                },
+                {
+                    "id": 2,
+                    "description": "Deixe a carne descansar por 20 minutos para apurar o gosto."
+                },
+                {
+                    "id": 3,
+                    "description": "Coloque óleo suficiente para fritar algumas tirinhas (entre 7 e 8). O óleo precisa estar bem quente."
+                },
+                {
+                    "id": 4,
+                    "description": "Comece a fritura com poucas tirinhas para que o óleo não vire uma sopa, retire-as e reserve."
+                },
+                {
+                    "id": 5,
+                    "description": "Não deixe fritar muito para que a carne não fique dura."
+                },
+                {
+                    "id": 6,
+                    "description": "Troque o óleo da panela e refogue a cebola ralada."
+                },
+                {
+                    "id": 7,
+                    "description": "Depois de dourada, jogue todas as tirinhas de carne dentro da panela e mexa."
+                },
+                {
+                    "id": 8,
+                    "description": "Frite por 3 minutos e jogue na panela o creme de leite, catchup, extrato de tomate e mostarda."
+                },
+                {
+                    "id": 9,
+                    "description": "Deixe ferver um pouco, sempre misturando."
+                },
+                {
+                    "id": 10,
+                    "description": "Sirva com arroz branco e batata palha."
+                }
+            ],
+            "tags": [
+                {
+                    "id": 1,
+                    "name": "Carne"
+                },
+                {
+                    "id": 2,
+                    "name": "Almoço"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Camarão na moranga",
+            "time": 90,
+            "servings": 6,
+            "imageUrl": "../assets/images/camarao-moranga.jpg",
+            "rate": 4.7,
+            "difficulty": "Hard",
+            "ingredients": [
+                {
+                    "id": 1,
+                    "name": "Camarão médio",
+                    "quantity": "1 kg"
+                },
+                {
+                    "id": 2,
+                    "name": "Azeite",
+                    "quantity": "4 colheres de sopa"
+                },
+                {
+                    "id": 3,
+                    "name": "Dentes de alho",
+                    "quantity": "2 unidades"
+                },
+                {
+                    "id": 4,
+                    "name": "Cebola",
+                    "quantity": "1 unidade"
+                },
+                {
+                    "id": 5,
+                    "name": "Tomate sem semente",
+                    "quantity": "5 unidades"
+                },
+                {
+                    "id": 6,
+                    "name": "Sal",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 7,
+                    "name": "Pimenta do reino",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 8,
+                    "name": "Creme de leite sem soro",
+                    "quantity": "1 caixa"
+                },
+                {
+                    "id": 9,
+                    "name": "Requeijão",
+                    "quantity": "300 gramas"
+                },
+                {
+                    "id": 10,
+                    "name": "Moranga",
+                    "quantity": "1 unidade"
+                },
+                {
+                    "id": 11,
+                    "name": "Cheiro verde",
+                    "quantity": "a gosto"
+                },
+                {
+                    "id": 12,
+                    "name": "Catchup",
+                    "quantity": "3 colheres de sopa"
+                }
+            ],
+            "steps": [
+                {
+                    "id": 1,
+                    "description": "Retire a tampa e as sementes da moranga."
+                },
+                {
+                    "id": 2,
+                    "description": "Lave e enrole-a em papel alumínio e leve ao forno médio (180° C) por 45 minutos."
+                },
+                {
+                    "id": 3,
+                    "description": "Em uma panela, aqueça o azeite e refogue o alho e a cebola, junte o camarão e deixe cozinhar por 5 minutos."
+                },
+                {
+                    "id": 4,
+                    "description": "Adicione os tomates picados, a pimenta, o sal e o ketchup."
+                },
+                {
+                    "id": 5,
+                    "description": "Desligue o fogo e acrescente o creme de leite e o cheiro-verde."
+                },
+                {
+                    "id": 6,
+                    "description": "Misture bem e adicione por último o requeijão."
+                },
+                {
+                    "id": 7,
+                    "description": "Passe um pouco de requeijão no interior da moranga e despeje o creme de camarão."
+                }
+            ],
+            "tags": [
+                {
+                    "id": 1,
+                    "name": "Frutos do mar"
+                },
+                {
+                    "id": 2,
+                    "name": "Jantar"
+                },
+                {
+                    "id": 3,
+                    "name": "Almoço"
+                }
+            ]
+        }
+    ]
+}
