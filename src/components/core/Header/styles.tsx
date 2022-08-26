@@ -37,6 +37,4 @@ export const HeaderContainer = styled.div`
             margin: 0 10px;
         }
     }
-
-    
 `

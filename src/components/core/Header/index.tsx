@@ -1,9 +1,9 @@
-import {HeaderContainer} from './styles'
+import { HeaderContainer } from './styles'
 import { NavLink } from 'react-router-dom'
-import {GiKnifeFork} from 'react-icons/gi'
+import { GiKnifeFork } from 'react-icons/gi'
 
-export default function Header(){
-    return(
+export default function Header() {
+    return (
         <HeaderContainer>
             <div className='left'>
                 <NavLink to="/">
@@ -18,7 +18,7 @@ export default function Header(){
                     Good
                 </p>
                 <span>
-                    <GiKnifeFork size={40}/>
+                    <GiKnifeFork size={40} />
                 </span>
                 <p>
                     Food

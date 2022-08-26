@@ -6,6 +6,6 @@ import GlobalStyle from './global/styles'
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <App />
-    <GlobalStyle/>
+    <GlobalStyle />
   </React.StrictMode>
 )
