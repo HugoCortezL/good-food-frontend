@@ -7,4 +7,5 @@ export const BackdropContainer = styled.div`
     height: 100vh;
     width: 100%;
     background: rgba(0, 0, 0, 0.75);
+    z-index: 90;
 `

@@ -2,12 +2,12 @@ import styled from 'styled-components'
 
 
 export const IngredientCreatingContainer = styled.div`
-    width: 90%;
+    width: 50%;
     background: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
     position: fixed;
     top: 20vh;
-    left: 5%;
+    left: 25%;
     z-index: 100;
     header {
         padding: 1rem;
