@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { BsFillPieChartFill, BsFillBookmarkFill, BsFillBookFill } from 'react-icons/bs'
 import IngredientsList from '../../components/core/Ingredient/IngredientList'
 import PortionList from '../../components/core/Portions/PortionList'
+import TagList from '../../components/core/Tag/TagList'
 
 export default function Configs() {
     const [tableShow, setTableShow] = useState('ingredients')
@@ -41,6 +42,7 @@ export default function Configs() {
             <Content>
                 {tableShow == 'ingredients' ? <IngredientsList /> : <></>}
                 {tableShow == 'portions' ? <PortionList /> : <></>}
+                {tableShow == 'tags' ? <TagList /> : <></>}
                 
             </Content>
 
