@@ -2,6 +2,7 @@ import { ConfigContainer, SideBar, MenuItem, Content } from './styles'
 import { useState } from 'react'
 import { BsFillPieChartFill, BsFillBookmarkFill, BsFillBookFill } from 'react-icons/bs'
 import IngredientsList from '../../components/core/Ingredient/IngredientsList'
+import PortionList from '../../components/core/Portions/PortionsList'
 
 export default function Configs() {
     const [tableShow, setTableShow] = useState('ingredients')
@@ -38,7 +39,9 @@ export default function Configs() {
             </SideBar>
 
             <Content>
-                <IngredientsList />
+                {tableShow == 'ingredients' ? <IngredientsList /> : <></>}
+                {tableShow == 'portions' ? <PortionList /> : <></>}
+                
             </Content>
 
         </ConfigContainer>
