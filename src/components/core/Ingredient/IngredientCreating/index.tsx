@@ -1,7 +1,7 @@
 import { IngredientCreatingContainer } from './styles'
 import { useEffect, useState } from 'react'
 import { useMutation } from '@apollo/client'
-import { CREATE_INGREDIENT, UPDATE_INGREDIENT } from '../../../api/Ingredients'
+import { CREATE_INGREDIENT, UPDATE_INGREDIENT } from '../../../../api/Ingredients'
 
 interface IngredientCreatingProps {
     title: string,

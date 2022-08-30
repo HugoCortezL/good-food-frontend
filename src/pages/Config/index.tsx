@@ -1,7 +1,7 @@
 import { ConfigContainer, SideBar, MenuItem, Content } from './styles'
 import { useState } from 'react'
 import { BsFillPieChartFill, BsFillBookmarkFill, BsFillBookFill } from 'react-icons/bs'
-import IngredientsList from '../../components/core/IngredientsList'
+import IngredientsList from '../../components/core/Ingredient/IngredientsList'
 
 export default function Configs() {
     const [tableShow, setTableShow] = useState('ingredients')

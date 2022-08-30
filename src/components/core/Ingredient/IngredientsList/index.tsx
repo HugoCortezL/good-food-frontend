@@ -1,14 +1,14 @@
 import { IngredientListContainer, Content, Table } from './styles'
 import { useMutation, useQuery } from '@apollo/client'
-import { LOAD_INGREDIENTS, DELETE_INGREDIENT } from '../../../api/Ingredients'
+import { LOAD_INGREDIENTS, DELETE_INGREDIENT } from '../../../../api/Ingredients'
 import { useEffect, useState } from 'react'
-import { Ingredient } from '../../../models/Ingredients'
-import Loading from '../../shared/Loading'
+import { Ingredient } from '../../../../models/Ingredients'
+import Loading from '../../../shared/Loading'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { HiPencil, HiTrash } from 'react-icons/hi'
-import Backdrop from '../../shared/Backdrop'
+import Backdrop from '../../../shared/Backdrop'
 import IngredientCreating from '../IngredientCreating'
-import { client } from '../../../App'
+import { client } from '../../../../App'
 
 export default function IngredientsList() {
     const [ingredients, setIngredients] = useState<Ingredient[]>([])
@@ -81,7 +81,7 @@ export default function IngredientsList() {
         )
     })
 
-    if (loading) return <div className="loading"> <Loading /> </div>
+    if (loading) return <Loading />
 
     return (
         <IngredientListContainer>
