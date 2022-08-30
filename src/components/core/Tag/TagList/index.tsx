@@ -25,6 +25,10 @@ export default function TagList() {
         }
     }, [data])
 
+    useEffect(() => {
+        refetchLoadTags()
+    }, [])
+
     const startCreateTagHandler = () => {
         setCreating(true)
     }

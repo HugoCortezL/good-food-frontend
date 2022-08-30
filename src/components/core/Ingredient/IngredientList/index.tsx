@@ -25,6 +25,10 @@ export default function IngredientsList() {
         }
     }, [data])
 
+    useEffect(() => {
+        refetchLoadIngredients()
+    }, [])
+
     const startCreateIngredientHandler = () => {
         setCreating(true)
     }

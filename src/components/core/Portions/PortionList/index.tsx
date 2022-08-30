@@ -25,6 +25,10 @@ export default function PortionsList() {
         }
     }, [data])
 
+    useEffect(() => {
+        refetchLoadPortion()
+    }, [])
+
     const startCreatePortionHandler = () => {
         setCreating(true)
     }
