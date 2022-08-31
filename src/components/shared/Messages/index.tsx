@@ -40,14 +40,18 @@ export default function Messages(props: MessageProps) {
 
     return (
         <MessageContainer backgroundColor={background} id={id}>
-            <div className="content">
-                {icon}
-                <p>
-                    {props.message}
-                </p>
+            <div className='content'>
+                <div className="left">
+                    {icon}
+                    <p>
+                        {props.message}
+                    </p>
+                </div>
+                <div className="close">
+                    <MdClose size={25} onClick={props.onClose}/>
+                </div>
             </div>
-            <div className="close">
-                <MdClose size={25} onClick={props.onClose}/>
+            <div className="timer">
             </div>
         </MessageContainer>
     )
