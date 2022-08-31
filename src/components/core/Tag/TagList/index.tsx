@@ -9,12 +9,16 @@ import { HiPencil, HiTrash } from 'react-icons/hi'
 import Backdrop from '../../../shared/Backdrop'
 import TagCreating from '../TagCreating'
 import { client } from '../../../../App'
+import MessagesList from '../../../shared/MessagesList'
+import { createMessage } from '../../../../utilities/createMessage'
 
 export default function TagList() {
     const [tags, setTags] = useState<Tag[]>([])
     const [creating, setCreating] = useState(false)
     const [editing, setEditing] = useState(false)
     const [selectedTag, setSelectedTag] = useState({ id: '', name: '', color: '' })
+    const [messages, setMessages] = useState<any[]>([])
+
 
     const { error, loading, data } = useQuery(LOAD_TAG)
     const [deleteTag, result] = useMutation(DELETE_TAG)
@@ -38,7 +42,7 @@ export default function TagList() {
         setSelectedTag(
             {
                 id,
-                name, 
+                name,
                 color
             }
         )
@@ -53,13 +57,30 @@ export default function TagList() {
     const modalCancelHandler = () => {
         setCreating(false)
         setEditing(false)
-        setSelectedTag({ id: '', name: '', color: ''  })
+        setSelectedTag({ id: '', name: '', color: '' })
         refetchLoadTags()
     }
 
     const deleteTagHandler = async (id: string) => {
-        await deleteTag({ variables: { id: id } })
+        const result = await deleteTag({ variables: { id: id } })
+        var newMessage = createMessage(
+            "Tag excluida com sucesso",
+            "SUCCESS"
+        )
+        if (!result.data.deleteTag) {
+            newMessage = createMessage(
+                "Não foi possivel excluir esta tag",
+                "ERROR"
+            )
+        }
+        const newMessagesArray = [...messages, newMessage]
+        setMessages(newMessagesArray)
         await refetchLoadTags()
+    }
+
+    const handlerCloseMessage = (messageId: string) => {
+        const newMessages = messages.filter(message => messageId != message.id)
+        setMessages(newMessages)
     }
 
     const tagsList = tags.map(tag => {
@@ -89,10 +110,12 @@ export default function TagList() {
         )
     })
 
+
     if (loading) return <Loading />
 
     return (
         <TagListContainer>
+            <MessagesList messages={messages} onClose={handlerCloseMessage} />
             <Content>
                 {
                     creating &&
