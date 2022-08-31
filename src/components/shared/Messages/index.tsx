@@ -1,14 +1,16 @@
-import { ResponseContainer } from './styles'
+import { MessageContainer } from './styles'
 import { useState, useEffect } from 'react'
 import { MdOutlineError, MdCheckCircle, MdClose, MdOutlineWarning } from 'react-icons/md'
 
-interface ResponseProps {
+interface MessageProps {
     type: string,
     message: string,
     onClose: any
 }
 
-export default function Messages(props: ResponseProps) {
+export default function Messages(props: MessageProps) {
+    const [id, setId] = useState(Math.random().toString())
+
 
     let background = ""
     let icon
@@ -25,9 +27,19 @@ export default function Messages(props: ResponseProps) {
         background = "#c86f0a"
         icon = <MdOutlineWarning size={25} />
     }
+    
+    useEffect(() => {
+        const el = document.getElementById(id)
+        if(el){
+            setTimeout(() => {
+                el.style.display = 'none'
+            }, 8000)
+        }
+    }, [])
+    
 
     return (
-        <ResponseContainer backgroundColor={background}>
+        <MessageContainer backgroundColor={background} id={id}>
             <div className="content">
                 {icon}
                 <p>
@@ -37,6 +49,6 @@ export default function Messages(props: ResponseProps) {
             <div className="close">
                 <MdClose size={25} onClick={props.onClose}/>
             </div>
-        </ResponseContainer>
+        </MessageContainer>
     )
 }

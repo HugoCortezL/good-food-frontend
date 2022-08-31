@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
-interface ResponseContainerPorps {
+interface MessageContainerPorps {
     backgroundColor: string
 }
 
-export const ResponseContainer = styled.div<ResponseContainerPorps>`
+export const MessageContainer = styled.div<MessageContainerPorps>`
     background-color: ${props => props.backgroundColor};
     color: #FFFFFF;
     width: 250px;
@@ -13,6 +13,7 @@ export const ResponseContainer = styled.div<ResponseContainerPorps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    animation: desapier 8s forwards;
     .content{
         display: flex;
         align-items: center;
@@ -26,6 +27,18 @@ export const ResponseContainer = styled.div<ResponseContainerPorps>`
         align-items: center;
         justify-content: center;
         cursor: pointer;
+    }
+
+    @keyframes desapier {
+        0% {
+            opacity: 1;
+        }
+        80%{
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
     }
 
 `
