@@ -92,6 +92,48 @@ export function createMessage(code: string){
                 type: types.Error
             }
             break;
+        case "ING04001":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possivel excluir este ingrediente",
+                type: types.Error
+            }
+            break;
+        case "ING01002":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Tngrediente excluido com sucesso",
+                type: types.Success
+            }
+            break;
+        case "ING02003":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Ingrediente criado com sucesso",
+                type: types.Info
+            }
+            break;
+        case "ING01004":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possível criar o ingrediente",
+                type: types.Error
+            }
+            break;
+        case "ING02005":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Ingrediente editado com sucesso",
+                type: types.Info
+            }
+            break;
+        case "ING04006":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possível editar o ingrediente",
+                type: types.Error
+            }
+            break;
         default:
             break;
     }

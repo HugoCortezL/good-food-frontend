@@ -28,12 +28,30 @@ export default function IngredientCreating(props: IngredientCreatingProps) {
     }, [])
 
     const confirmHandler = async () => {
-        if (props.id) {
-            await updateIngredient({ variables: { name: name, id: props.id } })
+        if (validateFields()) {
+            if (props.id) {
+                const result = await updateIngredient({ variables: { name: name, id: props.id } })
+                props.onConfirm(result.data.updateIngredient)
+            } else {
+                const result = await createIngredient({ variables: { name: name } })
+                props.onConfirm(result.data.createIngredient)
+            }
         } else {
-            await createIngredient({ variables: { name: name } })
+            props.onConfirm(false)
         }
-        props.onConfirm()
+    }
+
+    const validateFields = () => {
+        var regName = /\d/
+        if (name.trim().length < 1) {
+            console.log("name")
+            return false
+        }
+        if (regName.test(name)) {
+            return false
+        }
+
+        return true
     }
 
     return (

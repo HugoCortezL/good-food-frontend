@@ -9,12 +9,15 @@ import { HiPencil, HiTrash } from 'react-icons/hi'
 import Backdrop from '../../../shared/Backdrop'
 import IngredientCreating from '../IngredientCreating'
 import { client } from '../../../../App'
+import { createMessage } from '../../../../utilities/createMessage'
+import MessagesList from '../../../shared/MessagesList'
 
 export default function IngredientsList() {
     const [ingredients, setIngredients] = useState<Ingredient[]>([])
     const [creating, setCreating] = useState(false)
     const [editing, setEditing] = useState(false)
     const [selectedIngredient, setSelectedIngredient] = useState({ id: '', name: '' })
+    const [messages, setMessages] = useState<any[]>([])
 
     const { error, loading, data } = useQuery(LOAD_INGREDIENTS)
     const [deleteIngredient, result] = useMutation(DELETE_INGREDIENT)
@@ -56,9 +59,46 @@ export default function IngredientsList() {
         refetchLoadIngredients()
     }
 
+    const modalConfirmCreationHandler = (result: boolean) => {
+        setCreating(false)
+        refetchLoadIngredients()
+        if (result) {
+            addMessage("ING02003")
+        } else {
+            addMessage("ING01004")
+        }
+    }
+
+    const modalConfirmEditHandler = (result: boolean) => {
+        setEditing(false)
+        setSelectedIngredient({ id: '', name: ''})
+        refetchLoadIngredients()
+        if (result) {
+            addMessage("ING02005")
+        } else {
+            addMessage("ING04006")
+        }
+    }
+
     const deleteIngredientHandler = async (id: string) => {
-        await deleteIngredient({ variables: { id: id } })
+        const result = await deleteIngredient({ variables: { id: id } })
+        if (!result.data.deleteIngredient) {
+            addMessage("ING04001")
+        } else {
+            addMessage("ING01002")
+        }
         await refetchLoadIngredients()
+    }
+
+    const addMessage = async (messageCode: string) => {
+        var newMessage = createMessage(messageCode)
+        const newMessagesArray = [...messages, newMessage]
+        setMessages(newMessagesArray)
+    }
+
+    const handlerCloseMessage = (messageId: string) => {
+        const newMessages = messages.filter(message => messageId != message.id)
+        setMessages(newMessages)
     }
 
     const ingredientsList = ingredients.map(ingredient => {
@@ -89,6 +129,7 @@ export default function IngredientsList() {
 
     return (
         <IngredientListContainer>
+            <MessagesList messages={messages} onClose={handlerCloseMessage} />
             <Content>
                 {
                     creating &&
@@ -97,7 +138,7 @@ export default function IngredientsList() {
                         <IngredientCreating
                             title="Create Ingredient"
                             onCancel={modalCancelHandler}
-                            onConfirm={modalCancelHandler}
+                            onConfirm={modalConfirmCreationHandler}
                             confirmText="Create"
                         />
                     </>
@@ -109,7 +150,7 @@ export default function IngredientsList() {
                         <IngredientCreating
                             title="Edit Ingredient"
                             onCancel={modalCancelHandler}
-                            onConfirm={modalCancelHandler}
+                            onConfirm={modalConfirmEditHandler}
                             confirmText="Save"
                             id={selectedIngredient.id}
                             ingredientName={selectedIngredient.name}
