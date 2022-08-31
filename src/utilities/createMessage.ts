@@ -1,3 +1,11 @@
+/*
+Formação:
+XXX - Iniciais do tipo de dado
+XX - Qual o tipo da mensagem (SUCESS = 01, INFO = 02, WARNING = 03, ERROR = 04) 
+XXX - Qual o numero(texto) da menssagem de acordo com a quantidade de mensagem que o tipo de dado tem
+
+*/
+
 enum types {
     Error = "ERROR",
     Success = "SUCCESS",
