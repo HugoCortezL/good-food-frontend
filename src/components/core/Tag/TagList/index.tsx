@@ -57,9 +57,9 @@ export default function TagList() {
         refetchLoadTags()
     }
 
-    const deleteTagHandler = (id: string) => {
-        deleteTag({ variables: { id: id } })
-        refetchLoadTags()
+    const deleteTagHandler = async (id: string) => {
+        await deleteTag({ variables: { id: id } })
+        await refetchLoadTags()
     }
 
     const tagsList = tags.map(tag => {

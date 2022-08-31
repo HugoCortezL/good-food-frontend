@@ -56,9 +56,9 @@ export default function PortionsList() {
         refetchLoadPortion()
     }
 
-    const deletePortionHandler = (id: string) => {
-        deletePortion({ variables: { id: id } })
-        refetchLoadPortion()
+    const deletePortionHandler = async (id: string) => {
+        await deletePortion({ variables: { id: id } })
+        await refetchLoadPortion()
     }
 
     const portionList = portions.map(portion => {

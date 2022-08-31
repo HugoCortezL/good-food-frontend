@@ -56,9 +56,9 @@ export default function IngredientsList() {
         refetchLoadIngredients()
     }
 
-    const deleteIngredientHandler = (id: string) => {
-        deleteIngredient({ variables: { id: id } })
-        refetchLoadIngredients()
+    const deleteIngredientHandler = async (id: string) => {
+        await deleteIngredient({ variables: { id: id } })
+        await refetchLoadIngredients()
     }
 
     const ingredientsList = ingredients.map(ingredient => {
