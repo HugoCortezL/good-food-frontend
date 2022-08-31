@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { Tag } from '../../../models/Tag'
 import Loading from '../../shared/Loading'
 import { client } from '../../../App'
+import { colorByBackground } from '../../../utilities/colorByBackground'
 
 export default function TagHomeList() {
     const [tags, setTags] = useState<Tag[]>([])
@@ -28,13 +29,8 @@ export default function TagHomeList() {
     }
 
     const tagsList = tags.map(tag => {
+        const color = colorByBackground(tag.color)
         
-        const luminance = (0.299 * parseInt(tag.color.slice(1,3), 16) + 0.587 * parseInt(tag.color.slice(3,5), 16) + 0.114 * parseInt(tag.color.slice(5), 16))/255;
-        let color = "#FFFFFF"
-        if(luminance > 0.5){
-            color = "#000000"
-        }
-
         return (
             <TagContainer key={tag.id} background={tag.color} color={color}>
                 <p>{tag.name}</p>

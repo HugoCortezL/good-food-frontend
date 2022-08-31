@@ -1,10 +1,10 @@
 import { BackdropContainer } from './styles'
 
-interface BackdopProps {
+interface BackdropProps {
     click: any
 }
 
-export default function Backdrop(props: BackdopProps) {
+export default function Backdrop(props: BackdropProps) {
     return (
         <BackdropContainer onClick={props.click}>
 
