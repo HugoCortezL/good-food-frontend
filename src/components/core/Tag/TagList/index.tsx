@@ -85,9 +85,9 @@ export default function TagList() {
     const deleteTagHandler = async (id: string) => {
         const result = await deleteTag({ variables: { id: id } })
         if (!result.data.deleteTag) {
-            addMessage("TAG04001")
+            await addMessage("TAG04001")
         } else {
-            addMessage("TAG01002")
+            await addMessage("TAG01002")
         }
         await refetchLoadTags()
     }
@@ -96,10 +96,6 @@ export default function TagList() {
         var newMessage = createMessage(messageCode)
         const newMessagesArray = [...messages, newMessage]
         setMessages(newMessagesArray)
-        setTimeout(() => {
-            const newMessagesArray = messages.slice(1, -1)
-            setMessages(newMessagesArray)
-        }, 5000)
     }
 
     const handlerCloseMessage = (messageId: string) => {
