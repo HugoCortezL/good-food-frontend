@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import { Recipe } from '../../../models/Recipe'
 import { client } from '../../../App'
 
+import { Link } from 'react-router-dom'
+
 import RecipeCard from '../RecipeCard'
 import Loading from '../../shared/Loading'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -45,10 +47,12 @@ export default function RecipeList() {
         <RecipeListContainer>
             <div className="header">
                 <h2>Recipes</h2>
-                <button className='create' >
-                    <AiOutlinePlus size={25} />
-                    Create
-                </button>
+                <Link to="recipe/new">
+                    <button className='create' >
+                        <AiOutlinePlus size={25} />
+                        Create
+                    </button>
+                </Link>
             </div>
 
             <Content>

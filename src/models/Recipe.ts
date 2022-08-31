@@ -11,7 +11,7 @@ export type Recipe = {
     imageUrl: string,
     rate: number,
     difficulty: number,
-    favotire: boolean,
+    favorite: boolean,
     principalTag: Tag,
 }
 
