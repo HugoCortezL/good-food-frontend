@@ -1,3 +1,5 @@
+import { RecipeIngredientView } from "./RecipeIngredient"
+import { Step } from "./Step"
 import { Tag } from "./Tag"
 
 export type Recipe = {
@@ -14,7 +16,7 @@ export type Recipe = {
 }
 
 export interface RecipeView extends Recipe {
-    steps: any[],
-    ingredients: any[],
+    steps: Step[],
+    ingredients: RecipeIngredientView[],
     generalTags: Tag[]
 }

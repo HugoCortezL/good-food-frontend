@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './components/core/Header'
 import Config from './pages/Config'
 import Recipe from './pages/Recipe'
+import RecipeDetail from './pages/RecipeDetail'
+
 import {
   ApolloClient,
   InMemoryCache,
@@ -45,7 +47,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Recipe />} />
-          <Route path="/recipe/:recipeName" element={<Recipe />} />
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
           <Route path="/searchByIngredients" element={<Recipe />} />
           <Route path="/favorites" element={<Recipe />} />
           <Route path="/config" element={<Config />} />
