@@ -1,9 +1,10 @@
 import { RecipeContainer } from './styles'
+import TagHomeList from '../../components/core/TagHomeList'
 
 export default function Recipe() {
     return (
         <RecipeContainer>
-            <h1>Recipe Page</h1>
+            <TagHomeList/>
         </RecipeContainer>
     )
 }
