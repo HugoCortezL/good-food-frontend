@@ -7,6 +7,7 @@ import { client } from '../../../App'
 
 import RecipeCard from '../RecipeCard'
 import Loading from '../../shared/Loading'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 export default function RecipeList() {
     const [recipes, setRecipes] = useState<Recipe[]>([])
@@ -42,7 +43,14 @@ export default function RecipeList() {
 
     return (
         <RecipeListContainer>
-            <h2>Recipes</h2>
+            <div className="header">
+                <h2>Recipes</h2>
+                <button className='create' >
+                    <AiOutlinePlus size={25} />
+                    Create
+                </button>
+            </div>
+
             <Content>
                 {recipeList}
             </Content>

@@ -6,8 +6,8 @@ interface BgProps {
 }
 
 export const RecipeCardContainer = styled.div`
-    width: 18vw;
-    height: 45vh;
+    
+    height: 50vh;
     border-radius: 5px 20px 2px 20px;
     box-shadow: 4px 4px 8px #D2D2D2;
     overflow: hidden;
