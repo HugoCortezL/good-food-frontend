@@ -50,6 +50,48 @@ export function createMessage(code: string){
                 type: types.Error
             }
             break;
+        case "POR04001":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possivel excluir esta porção",
+                type: types.Error
+            }
+            break;
+        case "POR01002":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Porção excluida com sucesso",
+                type: types.Success
+            }
+            break;
+        case "POR02003":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Porção criada com sucesso",
+                type: types.Info
+            }
+            break;
+        case "POR01004":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possível criar a porção",
+                type: types.Error
+            }
+            break;
+        case "POR02005":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Porção editada com sucesso",
+                type: types.Info
+            }
+            break;
+        case "POR04006":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possível editar a porção",
+                type: types.Error
+            }
+            break;
         default:
             break;
     }

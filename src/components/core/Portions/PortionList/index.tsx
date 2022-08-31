@@ -9,12 +9,15 @@ import { HiPencil, HiTrash } from 'react-icons/hi'
 import Backdrop from '../../../shared/Backdrop'
 import PortionCreating from '../PortionCreating'
 import { client } from '../../../../App'
+import MessagesList from '../../../shared/MessagesList'
+import { createMessage } from '../../../../utilities/createMessage'
 
 export default function PortionsList() {
     const [portions, setPortions] = useState<Portion[]>([])
     const [creating, setCreating] = useState(false)
     const [editing, setEditing] = useState(false)
     const [selectedPortion, setSelectedPortion] = useState({ id: '', name: '' })
+    const [messages, setMessages] = useState<any[]>([])
 
     const { error, loading, data } = useQuery(LOAD_PORTION)
     const [deletePortion, result] = useMutation(DELETE_PORTION)
@@ -56,9 +59,47 @@ export default function PortionsList() {
         refetchLoadPortion()
     }
 
+    const modalConfirmCreationHandler = (result: boolean) => {
+        setCreating(false)
+        refetchLoadPortion()
+        if (result) {
+            addMessage("POR02003")
+        } else {
+            addMessage("POR01004")
+        }
+    }
+    
+    const modalConfirmEditHandler = (result: boolean) => {
+        console.log("Chegou")
+        setEditing(false)
+        setSelectedPortion({ id: '', name: '' })
+        refetchLoadPortion()
+        if (result) {
+            addMessage("POR02005")
+        } else {
+            addMessage("POR04006")
+        }
+    }
+
     const deletePortionHandler = async (id: string) => {
-        await deletePortion({ variables: { id: id } })
+        const result = await deletePortion({ variables: { id: id } })
+        if (!result.data.deletePortion) {
+            await addMessage("POR04001")
+        } else {
+            await addMessage("POR01002")
+        }
         await refetchLoadPortion()
+    }
+
+    const addMessage = async (messageCode: string) => {
+        var newMessage = createMessage(messageCode)
+        const newMessagesArray = [...messages, newMessage]
+        setMessages(newMessagesArray)
+    }
+
+    const handlerCloseMessage = (messageId: string) => {
+        const newMessages = messages.filter(message => messageId != message.id)
+        setMessages(newMessages)
     }
 
     const portionList = portions.map(portion => {
@@ -89,6 +130,7 @@ export default function PortionsList() {
 
     return (
         <PortionListContainer>
+            <MessagesList messages={messages} onClose={handlerCloseMessage} />
             <Content>
                 {
                     creating &&
@@ -97,7 +139,7 @@ export default function PortionsList() {
                         <PortionCreating
                             title="Create Portion"
                             onCancel={modalCancelHandler}
-                            onConfirm={modalCancelHandler}
+                            onConfirm={modalConfirmCreationHandler}
                             confirmText="Create"
                         />
                     </>
@@ -109,7 +151,7 @@ export default function PortionsList() {
                         <PortionCreating
                             title="Edit Portion"
                             onCancel={modalCancelHandler}
-                            onConfirm={modalCancelHandler}
+                            onConfirm={modalConfirmEditHandler}
                             confirmText="Save"
                             id={selectedPortion.id}
                             portionName={selectedPortion.name}

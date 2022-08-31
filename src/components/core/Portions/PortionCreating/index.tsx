@@ -28,12 +28,30 @@ export default function PortionCreating(props: PortionCreatingProps) {
     }, [])
 
     const confirmHandler = async () => {
-        if (props.id) {
-            await updatePortion({ variables: { name: name, id: props.id } })
-        } else {
-            await createPortion({ variables: { name: name } })
+        if(validateFields()){
+            if (props.id) {
+                const result = await updatePortion({ variables: { name: name, id: props.id } })
+                props.onConfirm(result.data.updatePortion)
+            } else {
+                const result = await createPortion({ variables: { name: name } })
+                props.onConfirm(result.data.createPortion)
+            }
+        }else{
+            props.onConfirm(false)
         }
-        props.onConfirm()
+    }
+
+    const validateFields = () => {
+        var regName = /\d/
+        if(name.trim().length < 1){
+            console.log("name")
+            return false
+        }
+        if(regName.test(name)){
+            return false
+        }
+
+        return true
     }
 
     return (

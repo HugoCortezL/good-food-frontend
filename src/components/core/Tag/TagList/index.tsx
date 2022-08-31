@@ -85,9 +85,9 @@ export default function TagList() {
     const deleteTagHandler = async (id: string) => {
         const result = await deleteTag({ variables: { id: id } })
         if (!result.data.deleteTag) {
-            await addMessage("TAG04001")
+            addMessage("TAG04001")
         } else {
-            await addMessage("TAG01002")
+            addMessage("TAG01002")
         }
         await refetchLoadTags()
     }
