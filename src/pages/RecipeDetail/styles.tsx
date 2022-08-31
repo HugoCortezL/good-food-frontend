@@ -56,6 +56,38 @@ export const StepsContainer = styled.div`
     }
 `
 
-export const Step = styled.div`
-    
+export const IngredientsTagsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+`
+
+export const IngredientsContainer = styled.div`
+    width: 63.75%;
+    box-shadow: 3px 3px 15px #AEAEAE;
+    border-radius: 20px;
+    padding: 20px 25px;
+    h2{
+        margin-bottom: 10px;
+    }
+    .ingredients{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+    `
+
+export const TagsContainer = styled.div`
+    width: 33.75%;
+    box-shadow: 3px 3px 15px #AEAEAE;
+    border-radius: 20px;
+    padding: 20px 25px;
+    h2{
+        margin-bottom: 10px;
+    }
+    .tags{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
 `

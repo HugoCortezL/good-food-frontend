@@ -1,4 +1,4 @@
-import { RecipeDetailContainer, DescriptionContainer, InformationContainer, StepsContainer } from './styles'
+import { RecipeDetailContainer, DescriptionContainer, InformationContainer, StepsContainer, IngredientsTagsContainer, IngredientsContainer, TagsContainer } from './styles'
 import { useParams } from "react-router-dom";
 import { useQuery } from '@apollo/client'
 import { LOAD_RECIPE_BY_ID } from '../../api/Recipe'
@@ -12,7 +12,8 @@ import Step from '../../components/core/Step';
 
 import Loading from '../../components/shared/Loading';
 import DifficultyLevel from '../../components/shared/DifficultyLevel';
-
+import IngredientInRecipe from '../../components/core/IngredientInRecipe';
+import TagInRecipe from '../../components/core/TagInRecipe';
 
 
 export default function RecipeDetail() {
@@ -74,13 +75,55 @@ export default function RecipeDetail() {
                     </InformationContainer>
                 </div>
             </DescriptionContainer>
+            <IngredientsTagsContainer>
+                <IngredientsContainer>
+                    <h2>Ingredients</h2>
+                    <div className='ingredients'>
+                        {
+                            recipe ?
+                                recipe.ingredients.map(ingredient => {
+                                    return (
+                                        <IngredientInRecipe
+                                            key={ingredient.id}
+                                            ingredient={ingredient.ingredient.name}
+                                            portion={ingredient.portion.name}
+                                            quantity={String(ingredient.quantity)}
+                                        />
+                                    )
+                                }) :
+                                <></>
+                        }
+                    </div>
+                </IngredientsContainer>
+                <TagsContainer>
+                    <h2>Tags</h2>
+                    <div className="tags">
+                        {
+                            recipe ?
+                                <>
+                                    <TagInRecipe background={recipe.principalTag.color} name={recipe.principalTag.name} />
+                                    {recipe.generalTags.map(tag => {
+                                        return (
+                                            <TagInRecipe
+                                                key={tag.id}
+                                                background={tag.color}
+                                                name={tag.name}
+                                            />
+                                        )
+                                    })}
+                                </> :
+                                <></>
+                        }
+                    </div>
+                </TagsContainer>
+            </IngredientsTagsContainer>
             <StepsContainer>
                 <h2>Steps</h2>
                 {
                     recipe ?
                         recipe.steps.map((step, index) => {
                             return (
-                                <Step key={step.id} description={step.description} index={index+1}/>
+                                <Step key={step.id} description={step.description} index={index + 1} />
                             )
                         }) :
                         <></>
