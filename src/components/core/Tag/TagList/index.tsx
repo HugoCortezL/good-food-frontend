@@ -61,6 +61,27 @@ export default function TagList() {
         refetchLoadTags()
     }
 
+    const modalConfirmCreationHandler = (result: boolean) => {
+        setCreating(false)
+        refetchLoadTags()
+        if (result) {
+            addMessage("CRETAGSUCE")
+        }else{
+            addMessage("CRETAGFAIL")
+        }
+    }
+    
+    const modalConfirmEditHandler = (result: boolean) => {
+        setEditing(false)
+        setSelectedTag({ id: '', name: '', color: '' })
+        refetchLoadTags()
+        if (result) {
+            addMessage("EDITAGSUCE")
+        }else{
+            addMessage("EDITAGFAIL")
+        }
+    }
+
     const deleteTagHandler = async (id: string) => {
         const result = await deleteTag({ variables: { id: id } })
         if (!result.data.deleteTag) {
@@ -123,7 +144,7 @@ export default function TagList() {
                         <TagCreating
                             title="Create Tag"
                             onCancel={modalCancelHandler}
-                            onConfirm={modalCancelHandler}
+                            onConfirm={modalConfirmCreationHandler}
                             confirmText="Create"
                         />
                     </>
@@ -135,7 +156,7 @@ export default function TagList() {
                         <TagCreating
                             title="Edit Tag"
                             onCancel={modalCancelHandler}
-                            onConfirm={modalCancelHandler}
+                            onConfirm={modalConfirmEditHandler}
                             confirmText="Save"
                             id={selectedTag.id}
                             tagName={selectedTag.name}

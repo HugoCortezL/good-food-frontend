@@ -37,12 +37,38 @@ export default function TagCreating(props: TagCreatingProps) {
     }, [])
 
     const confirmHandler = async () => {
-        if (props.id) {
-            await updateTag({ variables: { name: name, color: color, id: props.id } })
-        } else {
-            await createTag({ variables: { name: name, color: color } })
+        if(validateFields()){
+            if (props.id) {
+                const result = await updateTag({ variables: { name: name, color: color, id: props.id } })
+                props.onConfirm(result.data.updateTag)
+            } else {
+                const result = await createTag({ variables: { name: name, color: color } })
+                props.onConfirm(result.data.createTag)
+            }
+        }else{
+            props.onConfirm(false)
         }
-        props.onConfirm()
+    }
+
+    const validateFields = () => {
+        var regHex = /^#([0-9a-f]{3}){1,2}$/i
+        var regName = /\d/
+        if(name.trim().length < 1){
+            console.log("name")
+            return false
+        }
+        if(regName.test(name)){
+            return false
+        }
+        if(color.trim().length != 7){
+            console.log("color")
+            return false
+        }
+        if(!regHex.test(color)){
+            return false
+        }
+
+        return true
     }
 
     return (
