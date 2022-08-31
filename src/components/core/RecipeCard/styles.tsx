@@ -12,6 +12,8 @@ export const RecipeCardContainer = styled.div`
     box-shadow: 4px 4px 8px #D2D2D2;
     overflow: hidden;
     cursor: pointer;
+    margin-left: 3px;
+    margin-bottom: 24px;
 `
 
 export const ImageContainer = styled.div<BgProps>`
