@@ -10,7 +10,7 @@ export const MessageContainer = styled.div<MessageContainerPorps>`
     width: 250px;
     padding: 10px 20px;
     border-radius: 5px;
-    animation: desapier 8s forwards;
+    animation: desapier 8s linear;
     position: relative;
     .content{
         display: flex;
@@ -37,7 +37,7 @@ export const MessageContainer = styled.div<MessageContainerPorps>`
         position: absolute;
         bottom: 0;
         left: 0;
-        animation: timer 8s forwards;
+        animation: timer 8s linear;
     }
     
     
