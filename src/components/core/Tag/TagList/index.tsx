@@ -63,19 +63,18 @@ export default function TagList() {
 
     const deleteTagHandler = async (id: string) => {
         const result = await deleteTag({ variables: { id: id } })
-        var newMessage = createMessage(
-            "Tag excluida com sucesso",
-            "SUCCESS"
-        )
         if (!result.data.deleteTag) {
-            newMessage = createMessage(
-                "Não foi possivel excluir esta tag",
-                "ERROR"
-            )
+            addMessage("DELTAGFAIL")
+        }else{
+            addMessage("DELTAGSUCE")
         }
+        await refetchLoadTags()
+    }
+
+    const addMessage = (messageCode: string) => {
+        var newMessage = createMessage(messageCode)
         const newMessagesArray = [...messages, newMessage]
         setMessages(newMessagesArray)
-        await refetchLoadTags()
     }
 
     const handlerCloseMessage = (messageId: string) => {
