@@ -44,6 +44,9 @@ export const ContentContainer = styled.div`
     .top{
         overflow: hidden;
         h2{
+            max-height: 63%;
+            overflow: hidden;
+            text-overflow: ellipsis;
             font-size: 20px;
             @media (min-width: 1400px) {
                 font-size: 25px;
