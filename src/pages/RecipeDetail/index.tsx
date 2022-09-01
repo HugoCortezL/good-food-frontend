@@ -14,6 +14,7 @@ import Loading from '../../components/shared/Loading';
 import DifficultyLevel from '../../components/shared/DifficultyLevel';
 import IngredientInRecipe from '../../components/core/IngredientInRecipe';
 import TagInRecipe from '../../components/core/TagInRecipe';
+import Breadcrumb from '../../components/shared/Breadcrumb';
 
 
 export default function RecipeDetail() {
@@ -35,6 +36,10 @@ export default function RecipeDetail() {
 
     return (
         <RecipeDetailContainer>
+            {
+                recipe &&
+                <Breadcrumb list={["Receitas", recipe.principalTag.name, recipe.name]}/>
+            }
             <h1>
                 {recipe ? recipe.name : ''}
             </h1>
