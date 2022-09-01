@@ -152,7 +152,7 @@ export function createMessage(code: string){
         case "REC04002":
             newMessage = {
                 id: Math.random().toString(),
-                message: "Não foi possível criar a receiat",
+                message: "Não foi possível criar a receia",
                 type: types.Error
             }
             break;
