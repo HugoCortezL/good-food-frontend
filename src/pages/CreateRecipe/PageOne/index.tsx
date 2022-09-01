@@ -1,17 +1,22 @@
 import { CreateRecipeOneContainer } from './styles'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import { Recipe } from '../../../models/Recipe'
 import { useQuery } from '@apollo/client'
 import { LOAD_TAG } from '../../../api/Tags'
 import { Tag } from '../../../models/Tag'
 import Loading from '../../../components/shared/Loading'
+import { Link } from 'react-router-dom'
+
+
 
 interface CreateRecipeOneProps {
     id?: string,
-    children: any
+    onConfirm: (recipe: Recipe) => void,
+    addMessage: (messageCode: string) => void
 }
 
 export default function CreateRecipeOne(props: CreateRecipeOneProps) {
+    
     const [recipe, setRecipe] = useState<Recipe>({
         difficulty: 1,
         favorite: false,
@@ -40,50 +45,76 @@ export default function CreateRecipeOne(props: CreateRecipeOneProps) {
         }
     }, [data])
 
+    const onConfirmHandler = () => {
+        if(validateRecipe()){
+            props.onConfirm(recipe)
+            props.addMessage("REC01001")
+        }else{
+            console.log("Entrou")
+            props.addMessage("REC04002")
+        }
+    }
+
+    const validateRecipe = (): boolean => {
+        if(recipe.name.trim().length < 1){
+            return false
+        }
+        if(recipe.imageUrl.trim().length < 1){
+            return false
+        }
+        if(recipe.principalTag.id.trim().length < 1){
+            return false
+        }
+        return true
+    }
+
     const inputsChangeHandler = (event: any) => {
-        const exRecipe:Recipe = {...recipe}
-        if(event.target.id == "name"){
+        const exRecipe: Recipe = { ...recipe }
+        if (event.target.id == "name") {
             exRecipe.name = event.target.value
-        } else if(event.target.id == "imageUrl"){
+        } else if (event.target.id == "imageUrl") {
             exRecipe.imageUrl = event.target.value
-        }else if(event.target.id == "time"){
-            if (event.target.value <1){
+        } else if (event.target.id == "time") {
+            if (event.target.value < 1) {
                 exRecipe.time = 1
-            }else{
+            } else {
                 exRecipe.time = event.target.value
             }
-        }else if(event.target.id == "servings"){
-            if (event.target.value <1){
+        } else if (event.target.id == "servings") {
+            if (event.target.value < 1) {
                 exRecipe.servings = 1
-            }else{
+            } else {
                 exRecipe.servings = event.target.value
             }
-        }else if(event.target.id == "rate"){
-            if(event.target.value < 0){
+        } else if (event.target.id == "rate") {
+            if (event.target.value < 0) {
                 exRecipe.rate = 0
-            }else if (event.target.value > 5){
+            } else if (event.target.value > 5) {
                 exRecipe.rate = 5
-            }else{
+            } else {
                 exRecipe.rate = event.target.value
             }
-        }else if(event.target.id == "difficulty"){
-            if(event.target.value < 1){
+        } else if (event.target.id == "difficulty") {
+            if (event.target.value < 1) {
                 exRecipe.difficulty = 1
-            }else if (event.target.value > 3){
+            } else if (event.target.value > 3) {
                 exRecipe.difficulty = 3
-            }else{
+            } else {
                 exRecipe.difficulty = event.target.value
             }
-        }else if(event.target.id == "principalTag"){
+        } else if (event.target.id == "principalTag") {
             exRecipe.principalTag.id = event.target.value
         }
         setRecipe(exRecipe)
     }
 
-    if(loading) return <Loading />
+    
+
+    if (loading) return <Loading />
 
     return (
         <CreateRecipeOneContainer>
+            
             <header>
                 {
                     props.id ?
@@ -103,7 +134,7 @@ export default function CreateRecipeOne(props: CreateRecipeOneProps) {
                     </div>
                     <div className="form-control">
                         <label htmlFor="principalTag">Principal tag</label>
-                        <select name="selectTag" id="principalTag" onChange={inputsChangeHandler}>
+                        <select name="selectTag" id="principalTag" onChange={inputsChangeHandler} >
                             {
                                 tags.map(tag => {
                                     return (
@@ -134,7 +165,14 @@ export default function CreateRecipeOne(props: CreateRecipeOneProps) {
                 </div>
             </form>
             <div className="options">
-                {props.children}
+                <Link to="/">
+                    <button className="cancel-btn" >
+                        Cancel
+                    </button>
+                </Link>
+                <button className="confirm-btn" onClick={onConfirmHandler}>
+                    Create and next
+                </button>
             </div>
         </CreateRecipeOneContainer>
     )

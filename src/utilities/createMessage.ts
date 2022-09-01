@@ -142,6 +142,20 @@ export function createMessage(code: string){
                 type: types.Error
             }
             break;
+        case "REC01001":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "A receita foi criada com sucesso",
+                type: types.Success
+            }
+            break;
+        case "REC04002":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Não foi possível criar a receiat",
+                type: types.Error
+            }
+            break;
         default:
             break;
     }

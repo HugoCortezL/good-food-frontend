@@ -19,7 +19,7 @@ export const RecipeCardContainer = styled.div`
 export const ImageContainer = styled.div<BgProps>`
     width: 100%;
     height: 50%;
-    background: linear-gradient(180deg, rgba(217, 217, 217, 0) 79.17%, #FFFFFF 100%), ${props => `url(${props.background})`};
+    background: linear-gradient(180deg, rgba(217, 217, 217, 0) 79.17%, #FFFFFF 100%), ${props => `url('${props.background}')`};
     background-size: cover;
     background-position: center center;
     position: relative;
