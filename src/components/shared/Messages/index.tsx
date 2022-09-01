@@ -24,7 +24,7 @@ export default function Messages(props: MessageProps) {
         background = "#0040b6"
         icon = <MdOutlineError size={25} />
     }else if(props.type == 'WARNING'){
-        background = "#c86f0a"
+        background = "#f9722f"
         icon = <MdOutlineWarning size={25} />
     }
     

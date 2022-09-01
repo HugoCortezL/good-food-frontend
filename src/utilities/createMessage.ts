@@ -156,6 +156,27 @@ export function createMessage(code: string){
                 type: types.Error
             }
             break;
+        case "REC01003":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Tag adicionada com sucesso",
+                type: types.Success
+            }
+            break;
+        case "REC02004":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Selecione uma tag",
+                type: types.Info
+            }
+            break;
+        case "REC03005":
+            newMessage = {
+                id: Math.random().toString(),
+                message: "Essa tag já foi adicionada",
+                type: types.Warning
+            }
+            break;
         default:
             break;
     }

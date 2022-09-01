@@ -59,6 +59,18 @@ export const LOAD_RECIPE_BY_ID = gql`
     }
 `
 
+export const LOAD_GENERALTAGS_BY_RECIPEID = gql`
+    query getRecipeById($id: String!){
+        getRecipeById(id: $id){
+            generalTags {
+                id
+                name
+                color
+            }
+        }
+    }
+`
+
 export const CREATE_RECIPE = gql`
     mutation createRecipe($name: String!, $time: Float!, $servings: Float!, $imageUrl: String!, $rate: Float!, $difficulty: Float!, $favorite: Boolean, $principalTag: ID!){
         createRecipe(recipe: {
@@ -74,5 +86,11 @@ export const CREATE_RECIPE = gql`
             id
             name
         }
+    }
+`
+
+export const ADD_GENERAL_TAG = gql`
+    mutation addGeneralTag($recipeId: String!, $tagId: String!){
+        addGeneralTag(recipeId: $recipeId, tagId: $tagId)
     }
 `

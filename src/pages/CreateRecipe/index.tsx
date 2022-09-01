@@ -13,7 +13,7 @@ import { createMessage } from '../../utilities/createMessage'
 
 export default function CreateRecipe() {
     const [messages, setMessages] = useState<any[]>([])
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(2)
     const [createRecipe, { data, loading, error }] = useMutation(CREATE_RECIPE)
 
     const createRecipeHandler = async (recipe: Recipe) => {
@@ -25,8 +25,20 @@ export default function CreateRecipe() {
         const difficulty = +recipe.difficulty
         const favorite = recipe.favorite
         const principalTag = recipe.principalTag.id
-        await createRecipe({variables: {name, time, servings, imageUrl, rate, difficulty, favorite, principalTag}})
-        setPage(2)
+        await createRecipe({ variables: { name, time, servings, imageUrl, rate, difficulty, favorite, principalTag } })
+        nextPage()
+    }
+
+    const nextPage = () => {
+        if (page < 4) {
+            setPage(page + 1)
+        }
+    }
+
+    const backPage = () => {
+        if (page > 1) {
+            setPage(page - 1)
+        }
     }
 
     const addMessage = async (messageCode: string) => {
@@ -44,17 +56,15 @@ export default function CreateRecipe() {
     let pageToShow
     if (page == 1) {
         pageToShow = <>
-            <CreateRecipeOne onConfirm={createRecipeHandler} addMessage={addMessage}/>
+            <CreateRecipeOne onConfirm={createRecipeHandler} addMessage={addMessage} />
         </>
     } else if (page == 2) {
-        pageToShow = <>
-        <CreateRecipeTwo>
-            <div>
-                oi
-            </div>
-        </CreateRecipeTwo>
-        
-        </> 
+        pageToShow = <CreateRecipeTwo
+            id="6311009fa18f3a66135c776d"
+            onCancelHandler={backPage}
+            onConfirmHandler={nextPage}
+            addMessage={addMessage}
+        />
     }
 
     return (

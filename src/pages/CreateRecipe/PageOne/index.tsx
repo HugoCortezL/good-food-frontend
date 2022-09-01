@@ -135,6 +135,7 @@ export default function CreateRecipeOne(props: CreateRecipeOneProps) {
                     <div className="form-control">
                         <label htmlFor="principalTag">Principal tag</label>
                         <select name="selectTag" id="principalTag" onChange={inputsChangeHandler} >
+                            <option disabled selected value="">Select an option</option>
                             {
                                 tags.map(tag => {
                                     return (

@@ -1,140 +1,127 @@
-import { CreateRecipeTwoContainer } from './styles'
-import {useState, useEffect} from 'react'
-import { Recipe } from '../../../models/Recipe'
-import { useQuery } from '@apollo/client'
+import { CreateRecipeTwoContainer, GeneralTagContainer } from './styles'
+import { useState, useEffect } from 'react'
+import { useQuery, useMutation } from '@apollo/client'
+import { LOAD_GENERALTAGS_BY_RECIPEID, ADD_GENERAL_TAG } from '../../../api/Recipe'
 import { LOAD_TAG } from '../../../api/Tags'
 import { Tag } from '../../../models/Tag'
 import Loading from '../../../components/shared/Loading'
+import { client } from '../../../App'
+import { colorByBackground } from '../../../utilities/colorByBackground'
 
 interface CreateRecipeOneProps {
-    id?: string,
-    children: any
+    id: string,
+    onCancelHandler: () => void,
+    onConfirmHandler: () => void,
+    addMessage: (messageCode: string) => void
 }
 
 export default function CreateRecipeTwo(props: CreateRecipeOneProps) {
-    const [recipe, setRecipe] = useState<Recipe>({
-        difficulty: 1,
-        favorite: false,
-        id: "",
-        imageUrl: "",
-        name: "",
-        rate: 0,
-        servings: 1,
-        time: 1,
-        __typename: "",
-        principalTag: {
-            id: "",
-            color: "",
-            name: "",
-            __typename: "",
-        },
-
-    })
+    const id = props.id
+    const [generalTags, setGeneralTags] = useState<Tag[]>([])
+    const [selectedTag, setSelectedTag] = useState<string>()
 
     const [tags, setTags] = useState<Tag[]>([])
-    const { error, loading, data } = useQuery(LOAD_TAG)
+
+    const generalTagsQueryResult = useQuery(LOAD_GENERALTAGS_BY_RECIPEID, {
+        variables: { id }
+    })
+    const allTagsQueryResult = useQuery(LOAD_TAG)
+    const [addGeneralTag, addGeneralTagMutationResult] = useMutation(ADD_GENERAL_TAG)
+
+    const loading = generalTagsQueryResult.loading || allTagsQueryResult.loading
 
     useEffect(() => {
-        if (data) {
-            setTags(data.getAllTags)
+        if (generalTagsQueryResult.data && allTagsQueryResult.data) {
+            setTags(allTagsQueryResult.data.getAllTags)
+            setGeneralTags(generalTagsQueryResult.data.getRecipeById.generalTags)
         }
-    }, [data])
+    }, [generalTagsQueryResult.data, allTagsQueryResult.data])
 
-    const inputsChangeHandler = (event: any) => {
-        const exRecipe:Recipe = {...recipe}
-        if(event.target.id == "name"){
-            exRecipe.name = event.target.value
-        } else if(event.target.id == "imageUrl"){
-            exRecipe.imageUrl = event.target.value
-        }else if(event.target.id == "time"){
-            if (event.target.value <1){
-                exRecipe.time = 1
-            }else{
-                exRecipe.time = event.target.value
-            }
-        }else if(event.target.id == "servings"){
-            if (event.target.value <1){
-                exRecipe.servings = 1
-            }else{
-                exRecipe.servings = event.target.value
-            }
-        }else if(event.target.id == "rate"){
-            if(event.target.value < 0){
-                exRecipe.rate = 0
-            }else if (event.target.value > 5){
-                exRecipe.rate = 5
-            }else{
-                exRecipe.rate = event.target.value
-            }
-        }else if(event.target.id == "difficulty"){
-            if(event.target.value < 1){
-                exRecipe.difficulty = 1
-            }else if (event.target.value > 3){
-                exRecipe.difficulty = 3
-            }else{
-                exRecipe.difficulty = event.target.value
-            }
-        }else if(event.target.id == "principalTag"){
-            exRecipe.principalTag.id = event.target.value
-        }
-        setRecipe(exRecipe)
+    const refetchGeneralTagsIngredients = async () => {
+        await client.refetchQueries({
+            include: [LOAD_GENERALTAGS_BY_RECIPEID],
+        });
     }
 
-    if(loading) return <Loading />
+    const inputsChangeHandler = (event: any) => {
+        setSelectedTag(event.target.value)
+    }
+
+    const addTagToRecipe = async (event: any) => {
+        event.preventDefault()
+        let exists = false
+        if (selectedTag) {
+            for (let i = 0; i < generalTags.length; i++) {
+                if (generalTags[i].id == selectedTag) {
+                    props.addMessage("REC03005")
+                    exists = true
+                    break
+                }
+            }
+            if (!exists) {
+                props.addMessage("REC01003")
+                console.log("CRIAR MENSAGEM SUCCESS QUE ADICIONOU")
+                const result = await addGeneralTag({ variables: { recipeId: id, tagId: selectedTag } })
+                refetchGeneralTagsIngredients()
+            }
+        } else {
+            props.addMessage("REC02004")
+            console.log("CRIAR MENSAGEM WARNING QUE PRECISA SELECIONAR")
+        }
+        setSelectedTag("")
+        const selectEl = document.getElementById("principalTag")
+        if (selectEl) {
+            selectEl.value = "DEFAULT"
+        }
+    }
+
+    if (loading) return <Loading />
 
     return (
         <CreateRecipeTwoContainer>
             <header>
-                {
-                    props.id ?
-                        "Edit Recipe" :
-                        "Create Recipe"
-                }
+                Add General Tags
             </header>
             <form>
-                <div className="top">
-                    <div className="form-control">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" value={recipe.name} onChange={inputsChangeHandler} />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="imageUrl">Image URL</label>
-                        <input type="text" id="imageUrl" value={recipe.imageUrl} onChange={inputsChangeHandler} />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="principalTag">Principal tag</label>
-                        <select name="selectTag" id="principalTag" onChange={inputsChangeHandler}>
-                            {
-                                tags.map(tag => {
-                                    return (
-                                        <option key={tag.id} value={tag.id} >{tag.name}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
+                <div className="form-control">
+                    <select name="selectTag" id="principalTag" onChange={inputsChangeHandler}>
+                        <option disabled selected value="DEFAULT" >Select an option</option>
+                        {
+                            tags.map(tag => {
+                                return (
+                                    <option key={tag.id} value={tag.id} >{tag.name}</option>
+                                )
+                            })
+                        }
+                    </select>
                 </div>
-                <div className="bottom">
-                    <div className="form-control">
-                        <label htmlFor="time">Time</label>
-                        <input type="number" id="time" value={recipe.time} onChange={inputsChangeHandler} />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="servings">Servings</label>
-                        <input type="number" id="servings" value={recipe.servings} onChange={inputsChangeHandler} />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="rate">Rate</label>
-                        <input type="number" id="rate" value={recipe.rate} onChange={inputsChangeHandler} />
-                    </div>
-                    <div className="form-control">
-                        <label htmlFor="difficulty">Difficulty</label>
-                        <input type="number" id="difficulty" value={recipe.difficulty} onChange={inputsChangeHandler} />
-                    </div>
+                <div className="form-control">
+                    <button className="confirm-btn" onClick={addTagToRecipe}>
+                        Add
+                    </button>
                 </div>
             </form>
+            <section>
+                <div className='general-tags-container'>
+                    {
+                        generalTags.map(tag => {
+                            const color = colorByBackground(tag.color)
+                            return (
+                                <GeneralTagContainer key={tag.id} background={tag.color} color={color}>
+                                    {tag.name}
+                                </GeneralTagContainer>
+                            )
+                        })
+                    }
+                </div>
+            </section>
             <div className="options">
-                {props.children}
+                <button className="cancel-btn" onClick={props.onCancelHandler}>
+                    Back
+                </button>
+                <button className="confirm-btn" onClick={props.onConfirmHandler}>
+                    Continue
+                </button>
             </div>
         </CreateRecipeTwoContainer>
     )
